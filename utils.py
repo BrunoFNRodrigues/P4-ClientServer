@@ -1,13 +1,37 @@
 def Datagrama(tipo="", npacks=00, num_pack=00, file_id=00, payload_len=00, error_pack=00, last_pack=00, crc=00, payload=b''):
-    eop = b'\xDE\xEE\xEE\x55'
-    if tipo == "data":
+    eop = b'\xFF\xAA\xFF\xAA'
+    if tipo == "1":
+        mensagem = [1, 15, 00, npacks, num_pack, file_id, error_pack, last_pack, crc, crc]
+        mensagem = bytes(mensagem)
+        mensagem += payload
+        mensagem += eop
+
+    elif tipo == "2":
         mensagem = [2, 00, 00, npacks, num_pack, payload_len, error_pack, last_pack, crc, crc]
         mensagem = bytes(mensagem)
         mensagem += payload
         mensagem += eop
-        
-    elif tipo == "handshake":
-        mensagem = [1, 00, 00, npacks, num_pack, file_id, error_pack, last_pack, crc, crc]
+
+    elif tipo == "3":
+        mensagem = [3, 00, 00, npacks, num_pack, payload_len, error_pack, last_pack, crc, crc]
+        mensagem = bytes(mensagem)
+        mensagem += payload
+        mensagem += eop
+
+    elif tipo == "4":
+        mensagem = [4, 00, 00, npacks, num_pack, payload_len, error_pack, last_pack, crc, crc]
+        mensagem = bytes(mensagem)
+        mensagem += payload
+        mensagem += eop
+
+    elif tipo == "5":
+        mensagem = [5, 00, 00, npacks, num_pack, payload_len, error_pack, last_pack, crc, crc]
+        mensagem = bytes(mensagem)
+        mensagem += payload
+        mensagem += eop
+
+    elif tipo == "6":
+        mensagem = [6, 00, 00, npacks, num_pack, payload_len, error_pack, last_pack, crc, crc]
         mensagem = bytes(mensagem)
         mensagem += payload
         mensagem += eop
