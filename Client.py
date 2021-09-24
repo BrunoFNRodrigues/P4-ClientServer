@@ -33,7 +33,7 @@ def main():
     try:
         #declaramos um objeto do tipo enlace com o nome "com". Essa é a camada inferior à aplicação. Observe que um parametro
         #para declarar esse objeto é o nome da porta.
-        com3 = enlace('COM4')
+        com3 = enlace('COM3')
         com3.enable()
         print("ON")
 
@@ -50,7 +50,7 @@ def main():
 
         #Handshake
         while inicia == False:
-            if validado != lenPayload:
+            if validado == False:
                 pergunta=input("Você quer continuar (s/n):")
                 if pergunta == "s":
                     com3.sendData(np.asarray(Datagrama(tipo="1", npacks=numPck)))
@@ -60,14 +60,16 @@ def main():
                 elif pergunta == 'n':
                     com3.disable()
                     exit()          
-            elif  validado == lenPayload:
+            else:
                 inicia = True
         #Enviando dados
         cont = 1
-
+        
         while cont <= numPck:
+            print("Enviando Pacote", cont)
             pacote = Datagrama(tipo="3", npacks=numPck, num_pack=cont, payload_len=len(packs[cont-1]), payload=packs[cont-1])
             com3.sendData(np.asarray(pacote))
+            print("Pacote {}/{}".format(cont,numPck), pacote)
             start_timer1 = time.time()
             start_timer2 = time.time()
             msgt4, nRx = com3.getData(14)
@@ -77,6 +79,7 @@ def main():
             else:
                 deu_ruim = True
                 while deu_ruim == True:
+                    print("deu ruim")
                     if time.time()-start_timer1 > 5:
                         pacote = Datagrama(tipo="3", npacks=numPck, num_pack=cont, payload_len=len(packs[cont-1]), payload=packs[cont-1])
                         com3.sendData(np.asarray(pacote))
@@ -89,10 +92,11 @@ def main():
                     else:
                         msgt6, nRx = com3.getData(14)
                         if msgt6[0:1] == b'\x06':
-                            cont = msgt6[7:8]
+                            cont = int.from_bytes(msgt6[7:8], "big")
                             pacote = Datagrama(tipo="3", npacks=numPck, num_pack=cont, payload_len=len(packs[cont-1]), payload=packs[cont-1])
                             start_timer1 = time.time()
                             start_timer2 = time.time()
+                            
                         msgt4, nRx = com3.getData(14)
                         if msgt4[0:1] == b'\x04':
                             cont += 1

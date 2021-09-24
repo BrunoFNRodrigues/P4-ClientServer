@@ -1,7 +1,7 @@
 def Datagrama(tipo="", npacks=00, num_pack=00, file_id=00, payload_len=00, error_pack=00, last_pack=00, crc=00, payload=b''):
     eop = b'\xFF\xAA\xFF\xAA'
     if tipo == "1":
-        mensagem = [1, 15, 00, npacks, num_pack, file_id, error_pack, last_pack, crc, crc]
+        mensagem = [1, 00, 15, npacks, num_pack, file_id, error_pack, last_pack, crc, crc]
         mensagem = bytes(mensagem)
         mensagem += payload
         mensagem += eop
