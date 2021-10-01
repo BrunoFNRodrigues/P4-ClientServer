@@ -1,3 +1,6 @@
+import random
+
+
 def Datagrama(tipo="", npacks=00, num_pack=00, file_id=00, payload_len=00, error_pack=00, last_pack=00, crc=00, payload=b''):
     eop = b'\xFF\xAA\xFF\xAA'
     if tipo == "1":
@@ -41,3 +44,10 @@ def Datagrama(tipo="", npacks=00, num_pack=00, file_id=00, payload_len=00, error
 def Pack(info):
     lista=[info[i:i+114] for i in range(0, len(info), 114)]
     return lista
+
+def Teste(cont):
+    i = random.randint(0,100)
+    if i<5:
+        return cont+random.randint(2,7)
+    else:
+        return cont+1

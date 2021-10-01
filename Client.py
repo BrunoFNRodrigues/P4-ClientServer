@@ -13,8 +13,6 @@
 from enlace import *
 import time
 import numpy as np
-import random
-import binascii
 from utils import *
 
 
@@ -36,7 +34,7 @@ def main():
         com3 = enlace('COM3')
         com3.enable()
         print("ON")
-
+        
         imageR = "D:/Faculdade/4_semestre/FisComp/P4-ClientServer/imgs/image.png"
 
         txBuffer = open(imageR, "rb").read()
@@ -72,35 +70,40 @@ def main():
             print("Pacote {}/{}".format(cont,numPck), pacote)
             start_timer1 = time.time()
             start_timer2 = time.time()
-            msgt4, nRx = com3.getData(14)
+            msgt4, nRx = com3.getData(14,5)
 
             if msgt4[0:1] == b'\x04':
-                cont += 1
+                cont = Teste(cont)
+                msgt4 = Datagrama(tipo = "6") 
             else:
-                deu_ruim = True
-                while deu_ruim == True:
-                    print("deu ruim")
-                    if time.time()-start_timer1 > 5:
-                        pacote = Datagrama(tipo="3", npacks=numPck, num_pack=cont, payload_len=len(packs[cont-1]), payload=packs[cont-1])
-                        com3.sendData(np.asarray(pacote))
-                        start_timer1 = time.time()
+                erro = True
+                print("[ERRO]")
+                while erro == True:
+                    print(time.time()-start_timer2)
                     if time.time()-start_timer2 > 20:
                         com3.sendData(np.asarray(Datagrama(tipo="5")))
                         com3.disable()
                         print("(╯ ͠° ͟ʖ ͡°)╯┻━┻")
-                        exit()
+                        exit()                    
+                    elif time.time()-start_timer1 > 5:
+                        print("Tentando reconecção...")
+                        pacote = Datagrama(tipo="3", npacks=numPck, num_pack=cont, payload_len=len(packs[cont-1]), payload=packs[cont-1])
+                        com3.sendData(np.asarray(pacote))
+                        start_timer1 = time.time()
                     else:
-                        msgt6, nRx = com3.getData(14)
+                        msgt6, nRx = com3.getData(14,4)
                         if msgt6[0:1] == b'\x06':
+                            print("Corrigindo contador...")
                             cont = int.from_bytes(msgt6[7:8], "big")
                             pacote = Datagrama(tipo="3", npacks=numPck, num_pack=cont, payload_len=len(packs[cont-1]), payload=packs[cont-1])
+                            com3.sendData(np.asarray(pacote))
                             start_timer1 = time.time()
                             start_timer2 = time.time()
                             
-                        msgt4, nRx = com3.getData(14)
+                        msgt4, nRx = com3.getData(14,4)
                         if msgt4[0:1] == b'\x04':
                             cont += 1
-                            deu_ruim = False
+                            erro = False
 
 
 
