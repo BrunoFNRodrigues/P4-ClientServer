@@ -1,4 +1,5 @@
 import random
+import time
 
 
 def Datagrama(tipo="", npacks=00, num_pack=00, file_id=00, payload_len=00, error_pack=00, last_pack=00, crc=00, payload=b''):
@@ -47,7 +48,10 @@ def Pack(info):
 
 def Teste(cont):
     i = random.randint(0,100)
-    if i<5:
+    if i<3:
         return cont+random.randint(2,7)
     else:
         return cont+1
+
+def Tempolocal():
+    return time.asctime(time.localtime())

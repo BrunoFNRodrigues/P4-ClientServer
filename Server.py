@@ -13,7 +13,7 @@ def main():
         #Se chegamos até aqui, a comunicação foi aberta com sucesso. Faça um print para informar.
         print("ON")
         #aqui você deverá gerar os dados a serem transmitidos. 
-        imageW = "D:/Faculdade/4_semestre/FisComp/P4-ClientServer/imgs/recebidaCopia.png"
+        imageW = "C:/Users/nishi/OneDrive/Documentos/CAMADAS/P4-ClientServer/imgs/recebidaCopia.png"
         SaveImage = open(imageW, 'wb')
         ocioso = True 
 
