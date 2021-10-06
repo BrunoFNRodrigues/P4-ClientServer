@@ -1,0 +1,4 @@
+Wed Oct  6 18:27:48 2021, envio, 1, 14 
+Wed Oct  6 18:27:54 2021, recebe, b'', 0
+Wed Oct  6 18:28:03 2021, envio, 1, 14 
+Wed Oct  6 18:28:08 2021, recebe, b'', 0

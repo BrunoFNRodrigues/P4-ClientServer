@@ -48,7 +48,7 @@ def Pack(info):
 
 def Teste(cont):
     i = random.randint(0,100)
-    if i<3:
+    if i<3 and cont<141-7:
         return cont+random.randint(2,7)
     else:
         return cont+1

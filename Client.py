@@ -34,8 +34,8 @@ def main():
         com3 = enlace('COM3')
         com3.enable()
         print("ON")
-        imageR = "C:/Users/nishi/OneDrive/Documentos/CAMADAS/P4-ClientServer/imgs/image.png"
-        logclient = "./logs/clientlog.txt"
+        imageR = "./imgs/image.png"
+        logclient = "./logs/client5.txt"
         logclient = open(logclient, "w")
     
 
@@ -68,7 +68,7 @@ def main():
                 inicia = True
         #Enviando dados
         cont = 1
-        
+ 
         while cont <= numPck:
             print("Enviando Pacote", cont)
             pacote = Datagrama(tipo="3", npacks=numPck, num_pack=cont, payload_len=len(packs[cont-1]), payload=packs[cont-1])
@@ -81,7 +81,7 @@ def main():
             logclient.write("{}, recebe, {}, {}\n".format(Tempolocal(),str(msgt4[0:1]), len(msgt4)))
 
             if msgt4[0:1] == b'\x04':
-                cont = Teste(cont)
+                cont += 1
                 msgt4 = Datagrama(tipo = "6") 
             else:
                 erro = True

@@ -1,0 +1,9 @@
+Wed Oct  6 18:30:48 2021, envio, 1, 14 
+Wed Oct  6 18:30:49 2021, recebe, b'\x02', 14
+Wed Oct  6 18:30:50 2021, envio, 3, 128, 1, 141
+Wed Oct  6 18:30:55 2021, recebe, b'', 0
+Wed Oct  6 18:30:55 2021, envio, 3, 128, 1, 141
+Wed Oct  6 18:30:55 2021, recebe, b'\x06', 14
+Wed Oct  6 18:30:55 2021, envio, 3, 128, 2, 141
+Wed Oct  6 18:31:16 2021, recebe, b'\x05', 14
+Wed Oct  6 18:31:16 2021, envio, 5, 14 
